@@ -24,8 +24,8 @@ export function Sidebar({ className, ...props }: CardProps) {
             <MapPin />
             <p className="ml-2 mr-auto text-sm font-medium leading-none">Los Angeles</p>
             <Image
-              src="/losangeles.jpg"
-              alt="Los Angeles"
+              src="/barcelona.jpg"
+              alt="Barcelona"
               width={56}
               height={56}
               className="h-16 w-16 rounded-md object-cover"

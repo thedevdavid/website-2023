@@ -33,7 +33,7 @@ export default async function Home() {
     <div className="pb-10">
       <HeroSimple
         title="Building hackin’ cool digital products around the world 🌴."
-        subtitle="I'm Amy. Frontend engineer writing code and blog on the internet."
+        subtitle="Digital nomad creating content about being a solopreneur and building production-ready apps."
       />
       <div className="container mt-12 max-w-6xl">
         <div className="grid grid-cols-1 place-items-start justify-between gap-12 lg:grid-cols-3">
@@ -74,7 +74,7 @@ export default async function Home() {
       <CTA />
       {aboutPage && (
         <div className="container max-w-6xl">
-          <h2 className="mb-8 font-heading text-4xl font-bold">Who&apos;s this girl again?</h2>
+          <h2 className="mb-8 font-heading text-4xl font-bold">Who&apos;s this guy again?</h2>
           <div className="grid grid-cols-1 place-items-start justify-between gap-12 lg:grid-cols-3">
             <div className="col-span-1 mx-auto flex flex-col items-center justify-center">
               <Image

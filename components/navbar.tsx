@@ -19,7 +19,7 @@ const content: { title: string; href: string; description: string }[] = [
   {
     title: "Blog",
     href: "/posts",
-    description: "Blogposts. Mostly about web development. Or chicken fingers",
+    description: "Essays, guides, smol tips & tricks, and other written content.",
   },
   {
     title: "Speaking",
@@ -29,17 +29,22 @@ const content: { title: string; href: string; description: string }[] = [
   {
     title: "Videos",
     href: defaultAuthor.social.youtube,
-    description: "My YouTube channel where I talk about web development.",
+    description: "Videos about web development, solopreneurship, and other related topics.",
   },
   {
     title: "Newsletter",
     href: siteMetadata.newsletterUrl,
-    description: "My newsletter about software development",
+    description: "Aka Developreneur",
   },
   {
     title: "Teaching",
     href: "/teaching",
-    description: "I teach others. Sometimes for free, sometimes for money.",
+    description: "Mentoring, courses, tutorials, and other educational content.",
+  },
+  {
+    title: "418 Podcast",
+    href: "https://podcasters.spotify.com/pod/show/418-developreneur",
+    description: "A podcast. Well, it will be eventually. Right now it's just one episode. But it's coming. I promise.",
   },
 ];
 

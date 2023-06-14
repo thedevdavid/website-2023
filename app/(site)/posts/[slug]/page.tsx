@@ -169,7 +169,7 @@ export default async function PostPage({ params }: PostProps) {
               <div className="flex items-center rounded-md pl-2">
                 <ol className="list-none space-y-2" role="list">
                   {post.headings.map((heading: PostHeading) => (
-                    <li key={heading.slug} className="list-none">
+                    <li key={heading.slug} className="line-clamp-1 list-none">
                       <Link
                         className={cn("text-sm font-bold", heading.heading === 3 && "pl-6 font-normal")}
                         href={`#${heading.slug}`}

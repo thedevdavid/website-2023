@@ -1,8 +1,8 @@
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
 export const defaultAuthor = {
-  name: "Amy Shields",
-  handle: "@amyshieldsfake",
+  name: "David Levai",
+  handle: "@thedevdavid",
   social: {
     github: "https://github.com/thedevdavid",
     instagram: "https://instagram.com/thedevdavid",
@@ -11,10 +11,10 @@ export const defaultAuthor = {
     twitter: "https://twitter.com/thedevdavid",
     youtube: "https://youtube.com/@thedevdavid",
   },
-  email: "definitelyfake@nevermind.com",
-  website: "https://nextjs.org",
-  jobTitle: "Frontend Engineer & UI Designer",
-  company: "Unicorns & Co.",
+  email: "david@davidlevai.com",
+  website: "https://davidlevai.com",
+  jobTitle: "Indie Maker",
+  company: "Freelancer",
 };
 
 const defaultTitle = `${defaultAuthor.name}'s Digital Garden`;
@@ -26,7 +26,7 @@ const siteMetadata = {
     default: defaultTitle,
   },
   description: defaultDescription,
-  siteRepo: "https://github.com/thedevdavid/digital-garden",
+  siteRepo: "https://github.com/thedevdavid/website-2023",
   metadataBase: new URL(BASE_URL),
   newsletterUrl: "https://developreneur.davidlevai.com",
 };
