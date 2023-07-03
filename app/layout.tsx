@@ -1,10 +1,10 @@
 import "./globals.css";
 
 import { Inter, Space_Grotesk } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react";
 
 import siteMetadata from "@/lib/metadata";
 import { Toaster } from "@/components/ui/toaster";
+import { Analytics } from "@/components/analytics";
 import { ThemeProvider } from "@/components/theme-provider";
 
 const spaceGrotesk = Space_Grotesk({
@@ -32,8 +32,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           {children}
           <Toaster />
         </ThemeProvider>
-        <Analytics />
       </body>
+      <Analytics />
     </html>
   );
 }
