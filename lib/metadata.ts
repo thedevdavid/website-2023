@@ -1,8 +1,8 @@
-import { SiteMetaData } from "@/types";
+import { AuthorType, SiteMetaData } from "@/types";
 
 export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
 
-export const defaultAuthor = {
+export const defaultAuthor: AuthorType = {
   name: "David Levai",
   handle: "@thedevdavid",
   social: {
@@ -18,6 +18,10 @@ export const defaultAuthor = {
   jobTitle: "Indie Maker",
   company: "Freelancer",
   availableForWork: false,
+  location: {
+    city: "Barcelona",
+    media: "/barcelona.jpg",
+  },
 };
 
 const defaultTitle = `${defaultAuthor.name}'s Digital Garden`;

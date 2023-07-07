@@ -20,10 +20,14 @@ export function ModeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-      className="hidden h-6 w-6 items-center justify-center rounded-md border text-muted-foreground sm:flex"
+      className="group hidden h-6 w-6 items-center justify-center rounded-md border text-muted-foreground hover:bg-accent hover:text-accent-foreground sm:flex"
     >
       <span className="sr-only">Toggle dark/light mode</span>
-      {theme !== "dark" ? <Moon className="h-4 w-4" /> : <Sun className="h-4 w-4" />}
+      {theme !== "dark" ? (
+        <Moon className="h-4 w-4 duration-300 group-hover:rotate-[360deg]" />
+      ) : (
+        <Sun className="h-4 w-4 duration-300 group-hover:rotate-180" />
+      )}
     </button>
   );
 }

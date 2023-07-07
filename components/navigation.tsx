@@ -49,17 +49,19 @@ export function Navigation() {
             </Link>
           </div>
         )}
-        <div className="flex items-center rounded-full border-b border-primary/40 bg-white/30 bg-clip-padding px-4 py-2 shadow-md backdrop-blur-sm sm:container dark:bg-black/30 dark:text-white sm:justify-between sm:rounded-lg">
-          <div className="order-1 flex flex-row items-center justify-start">
-            <Link href="/" aria-label="Go to Home">
-              <Image
-                className="aspect-square h-auto w-10 rounded-full border border-black hover:opacity-60"
-                width={40}
-                height={40}
-                src="/avatar.png"
-                alt={defaultAuthor.name}
-              />
-            </Link>
+        <div className="flex items-center gap-2 rounded-full border-b border-primary/40 bg-white/30 bg-clip-padding px-3 py-2 shadow-md backdrop-blur-md sm:container dark:bg-black/30 dark:text-white sm:justify-between sm:rounded-lg sm:px-3">
+          <div className="flex items-center justify-start">
+            <div className="group aspect-square h-auto w-10 overflow-hidden rounded-full border border-black">
+              <Link href="/" aria-label="Go to Home">
+                <Image
+                  className="duration-300 group-hover:scale-110"
+                  width={40}
+                  height={40}
+                  src="/avatar.png"
+                  alt={defaultAuthor.name}
+                />
+              </Link>
+            </div>
             {defaultAuthor.availableForWork && (
               <Link href="/now" aria-label="Go to Now page" className="ml-2 hidden sm:block">
                 <WorkAvailabilityBadge />
@@ -74,7 +76,7 @@ export function Navigation() {
               <MobileNav />
             </nav>
           </div>
-          <div className="order-2 flex w-full items-center sm:order-3 sm:w-fit">
+          <div className="order-2 flex w-full items-center gap-2 sm:order-3 sm:w-fit">
             <CommandDialogComponent />
             <ModeToggle />
           </div>

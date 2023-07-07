@@ -4,7 +4,7 @@ import { Analytics as VercelAnalytics } from "@vercel/analytics/react";
 import siteMetadata from "@/lib/metadata";
 
 export const Analytics = () => {
-  if (process.env.NODE_ENV !== "production") {
+  if (process.env.NODE_ENV === "production") {
     switch (siteMetadata.analyticsProvider) {
       case "umami":
         return (
