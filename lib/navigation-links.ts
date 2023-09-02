@@ -15,12 +15,12 @@ const content: ContentNavItem[] = [
   },
   {
     title: "Videos",
-    href: defaultAuthor.social.youtube,
+    href: defaultAuthor.socialProfiles.find((platform) => platform.name === "youtube")?.link as string,
     description: "Videos about web development, solopreneurship, and other related topics.",
   },
   {
     title: "Newsletter",
-    href: siteMetadata.newsletterUrl,
+    href: siteMetadata.newsletterUrl as string,
     description: "Aka Developreneur",
   },
   {

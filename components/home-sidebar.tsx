@@ -1,10 +1,8 @@
-"use client";
-
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MapPin, Pencil } from "lucide-react";
 
-import { defaultAuthor } from "@/lib/metadata";
+import siteMetadata, { defaultAuthor } from "@/lib/metadata";
 import { projects } from "@/lib/projects-data";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -45,7 +43,7 @@ export function Sidebar({ className, ...props }: CardProps) {
           <CardTitle>What am I working on?</CardTitle>
         </CardHeader>
         <CardContent className="grid gap-4">
-          {projects.map((project) => (
+          {projects.slice(0, siteMetadata.projectsOnHomePage).map((project) => (
             <Link
               href={project.href}
               target="_blank"
@@ -53,20 +51,24 @@ export function Sidebar({ className, ...props }: CardProps) {
               className="flex items-center rounded-md pl-2 hover:bg-background/40 hover:backdrop-blur-lg"
             >
               <Pencil />
-              <p className="ml-2 mr-auto text-sm font-medium leading-none">{project.title}</p>{" "}
-              {project.mediaType === "video" ? (
-                <video autoPlay loop muted playsInline className="h-16 w-16 rounded-md object-cover">
-                  <source src="/project-garden.webm" type="video/webm" />
-                  <source src="/project-garden.mp4" type="video/mp4" />
-                </video>
+              <p className="ml-2 mr-auto text-sm font-medium leading-none">{project.title}</p>
+              {project.mediaSrc ? (
+                project.mediaType === "video" ? (
+                  <video autoPlay loop muted playsInline className="h-16 w-16 rounded-md object-cover">
+                    <source src="/project-garden.webm" type="video/webm" />
+                    <source src="/project-garden.mp4" type="video/mp4" />
+                  </video>
+                ) : (
+                  <Image
+                    src={project.mediaSrc}
+                    alt={project.title}
+                    width={56}
+                    height={56}
+                    className="h-16 w-16 rounded-md object-cover"
+                  />
+                )
               ) : (
-                <Image
-                  src={project.mediaSrc}
-                  alt={project.title}
-                  width={56}
-                  height={56}
-                  className="h-16 w-16 rounded-md object-cover"
-                />
+                <div className="flex h-16 w-16 items-center justify-end">WIP</div>
               )}
             </Link>
           ))}

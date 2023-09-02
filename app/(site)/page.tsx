@@ -1,36 +1,35 @@
 import Image from "next/image";
 import Link from "next/link";
-import { allPages, allPosts } from "@/.contentlayer/generated";
-import { compareDesc, format, parseISO } from "date-fns";
+import { allPages, allPosts } from "contentlayer/generated";
 import { ArrowRight } from "lucide-react";
 
-import { defaultAuthor } from "@/lib/metadata";
-import { cn } from "@/lib/utils";
-import CTA from "@/components/cta";
+import siteMetadata, { defaultAuthor } from "@/lib/metadata";
+import { sortByDate } from "@/lib/utils";
 import { HeroImage } from "@/components/hero-image";
 import { HeroMinimal } from "@/components/hero-minimal";
 import { HeroSimple } from "@/components/hero-simple";
 import { HeroVideo } from "@/components/hero-video";
 import { Sidebar } from "@/components/home-sidebar";
-import { Mdx } from "@/components/mdx-components";
+import { Mdx } from "@/components/mdx";
+import NewsletterSubscribe from "@/components/newsletter-subscribe";
+import PostPreview from "@/components/post-preview";
 
 async function getAboutPage() {
-  const page = allPages.find((page) => page.slug === "about");
+  const aboutPage = allPages.find((page) => page.slug === "about");
 
-  if (!page) {
+  if (!aboutPage) {
     null;
   }
 
-  return page;
+  return aboutPage;
 }
 
 export default async function Home() {
   const aboutPage = await getAboutPage();
   const posts = allPosts
     .filter((post) => post.status === "published")
-    .sort((a, b) =>
-      compareDesc(new Date(a.lastUpdatedDate || a.publishedDate), new Date(b.lastUpdatedDate || b.publishedDate))
-    );
+    .sort(sortByDate)
+    .slice(0, siteMetadata.postsOnHomePage);
 
   return (
     <div className="pb-10">
@@ -39,27 +38,11 @@ export default async function Home() {
         subtitle="Digital nomad creating content about being a solopreneur and building production-ready apps."
       />
       <div className="container mt-12 max-w-6xl">
-        <div className="grid grid-cols-1 place-items-start justify-between gap-12 lg:grid-cols-3">
-          <div className="col-span-1 lg:col-span-2">
+        <div className="grid grid-cols-1 place-items-start justify-between gap-8 lg:grid-cols-3">
+          <div className="col-span-1 w-full lg:col-span-2">
             <div className="prose grid grid-flow-row gap-3">
               {posts.map((post) => (
-                <article key={post._id} className="w-full">
-                  <Link
-                    href={`posts/${post.slug}`}
-                    className={cn(
-                      "select-rounded-md block w-full rounded-md px-3 py-6 leading-none no-underline outline-none transition hover:bg-foreground/20 hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground"
-                    )}
-                  >
-                    <h2 className="m-0 text-2xl font-bold leading-none text-foreground">{post.title}</h2>
-                    <div className="mb-4 mt-1 text-sm leading-snug text-muted-foreground">
-                      <time dateTime={post.publishedDate}>{format(parseISO(post.publishedDate), "LLLL d, yyyy")}</time>
-                      <span>{` // ${post.readTimeMinutes} mins read`}</span>
-                    </div>
-                    {post.description && (
-                      <p className="line-clamp-2 text-sm leading-snug text-muted-foreground">{post.description}</p>
-                    )}
-                  </Link>
-                </article>
+                <PostPreview key={post._id} post={post} />
               ))}
             </div>
             <Link
@@ -74,24 +57,36 @@ export default async function Home() {
           </aside>
         </div>
       </div>
-      <CTA
-        title="I also write deep dives in email"
-        description="I write about coding, design, digital nomad life, and solopreneurship. Join over 1,000 other developers in
+      {siteMetadata.newsletterUrl && (
+        <NewsletterSubscribe
+          title="I also write deep dives in email"
+          description="I write about coding, design, digital nomad life, product engineering, and solopreneurship. Join over 1,000 other developers in
             getting better in business. Unsubscribe whenever."
-        buttonText="Send me the emails"
-      />
+          buttonText="Send me the emails"
+        />
+      )}
       {aboutPage && (
         <div className="container max-w-6xl">
           <h2 className="mb-8 font-heading text-4xl font-bold">Who&apos;s this guy again?</h2>
           <div className="grid grid-cols-1 place-items-start justify-between gap-12 lg:grid-cols-3">
             <div className="col-span-1 mx-auto flex flex-col items-center justify-center">
-              <Image
-                src="/avatar-home.png"
-                alt={defaultAuthor.name}
-                width={400}
-                height={498}
-                className="h-auto w-72 -rotate-1 hover:rotate-3"
-              />
+              <div className="group relative left-0 top-0">
+                <Image
+                  src="/avatar-home.png"
+                  alt={defaultAuthor.name}
+                  width={400}
+                  height={498}
+                  quality={2}
+                  className="relative left-0 top-0 h-auto w-64 duration-100 ease-linear group-hover:-rotate-1 group-hover:scale-[1.01]"
+                />
+                <Image
+                  src="/avatar-home.png"
+                  alt={defaultAuthor.name}
+                  width={400}
+                  height={498}
+                  className="absolute left-0 top-0 h-auto w-64 -rotate-1 duration-100 ease-linear group-hover:rotate-3"
+                />
+              </div>
               <div className="text-center">
                 <h1 className="font-heading text-2xl font-bold">{defaultAuthor.name}</h1>
                 <p className="text-muted-foreground">{defaultAuthor.jobTitle}</p>

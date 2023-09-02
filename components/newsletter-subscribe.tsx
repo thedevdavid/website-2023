@@ -8,45 +8,68 @@ import { useForm } from "react-hook-form";
 import * as z from "zod";
 
 import siteMetadata from "@/lib/metadata";
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { ToastAction } from "@/components/ui/toast";
 import { useToast } from "@/components/ui/use-toast";
 
-interface CTAProps {
+export type CTAProps = {
   title: string;
   description?: string;
   buttonText: string;
-}
+};
 
 const formSchema = z.object({
   email: z.string().email(),
 });
 
-const CTA = ({ title, description, buttonText }: CTAProps) => {
+const NewsletterSubscribe = ({
+  title,
+  description,
+  buttonText,
+  className,
+  ...props
+}: CTAProps & React.HTMLAttributes<HTMLDivElement>) => {
   const { toast } = useToast();
+
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       email: "",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    // TODO: Newsletter subscriptions
-    toast({
-      title: "In progress...",
-      description: "I'm still working on this feature.",
-      action: (
-        <ToastAction altText="Go to Newsletter page" asChild>
-          <Link href={siteMetadata.newsletterUrl}>Go to Newsletter page</Link>
-        </ToastAction>
-      ),
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const response = await fetch("/newsletter", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        email: values.email,
+      }),
     });
-    console.log(values);
-  }
+
+    if (!response?.ok) {
+      return toast({
+        title: "Something went wrong.",
+        description: "The subscription did not happen. Please try again.",
+        variant: "destructive",
+      });
+    }
+
+    return toast({
+      title: "🎉 Nice!",
+      description: "You'll get the emails now.",
+    });
+  };
+
   return (
-    <section className="relative isolate my-24 overflow-hidden bg-primary py-6 text-primary-foreground">
+    <section
+      className={cn("relative isolate my-24 overflow-hidden bg-primary py-6 text-primary-foreground", className)}
+      {...props}
+    >
       <div className="p-8 md:p-12">
         <div className="mx-auto max-w-lg text-center">
           <h2 className="font-heading text-2xl font-bold md:text-3xl">{title}</h2>
@@ -69,18 +92,20 @@ const CTA = ({ title, description, buttonText }: CTAProps) => {
                   </FormItem>
                 )}
               />
-              <Button type="submit" variant="secondary" className="">
+              <Button type="submit" variant="secondary">
                 <Mail className="mr-2 h-4 w-4" /> {buttonText}
               </Button>
             </form>
           </Form>
-          <div className="mt-4 flex items-center justify-center">
-            <Button asChild variant="ghost">
-              <Link href={siteMetadata.newsletterUrl} target="_blank">
-                Let me read it first <ArrowRight className="mr-2 h-4 w-4" />
-              </Link>
-            </Button>
-          </div>
+          {siteMetadata.newsletterUrl && (
+            <div className="mt-4 flex items-center justify-center">
+              <Button asChild variant="ghost">
+                <Link href={siteMetadata.newsletterUrl} target="_blank">
+                  Let me read it first <ArrowRight className="mr-2 h-4 w-4" />
+                </Link>
+              </Button>
+            </div>
+          )}
         </div>
       </div>
 
@@ -89,10 +114,10 @@ const CTA = ({ title, description, buttonText }: CTAProps) => {
         className="absolute left-1/2 top-1/2 -z-10 h-[64rem] w-[64rem] -translate-x-1/2"
         aria-hidden="true"
       >
-        <circle cx={512} cy={512} r={512} fill="url(#759c1415-0410-454c-8f7c-9a820de03641)" fillOpacity="0.7" />
+        <circle cx={512} cy={512} r={512} fill="url(#gradient)" fillOpacity="0.7" />
         <defs>
           <radialGradient
-            id="759c1415-0410-454c-8f7c-9a820de03641"
+            id="gradient"
             cx={0}
             cy={0}
             r={1}
@@ -108,4 +133,4 @@ const CTA = ({ title, description, buttonText }: CTAProps) => {
   );
 };
 
-export default CTA;
+export default NewsletterSubscribe;

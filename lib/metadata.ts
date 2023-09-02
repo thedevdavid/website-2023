@@ -1,23 +1,21 @@
 import { AuthorType, SiteMetaData } from "@/types";
 
-export const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+import { socialProfiles } from "./social-data";
+
+export const BASE_URL =
+  `https://${process.env.VERCEL_URL}` ||
+  process.env.NEXT_PUBLIC_BASE_URL ||
+  `http://localhost:${process.env.PORT || 3000}`;
 
 export const defaultAuthor: AuthorType = {
   name: "David Levai",
   handle: "@thedevdavid",
-  social: {
-    github: "https://github.com/thedevdavid",
-    instagram: "https://instagram.com/thedevdavid",
-    linkedin: "https://linkedin.com/in/thedevdavid",
-    tiktok: "https://tiktok.com/@thedevdavid",
-    twitter: "https://twitter.com/thedevdavid",
-    youtube: "https://youtube.com/@thedevdavid",
-  },
+  socialProfiles,
   email: "david@davidlevai.com",
   website: "https://davidlevai.com",
-  jobTitle: "Indie Maker",
-  company: "Freelancer",
-  availableForWork: false,
+  jobTitle: "Product Engineer",
+  company: "Solopreneur",
+  availableForWork: true,
   location: {
     city: "Barcelona",
     media: "/barcelona.jpg",
@@ -34,9 +32,18 @@ const siteMetadata: SiteMetaData = {
   },
   description: defaultDescription,
   siteRepo: "https://github.com/thedevdavid/website-2023",
-  metadataBase: new URL(BASE_URL),
+  newsletterProvider: "mailerlite",
   newsletterUrl: "https://developreneur.davidlevai.com",
   analyticsProvider: "umami",
+  defaultTheme: "system",
+  activeAnnouncement: false,
+  announcement: {
+    buttonText: "Support on DevHunt →",
+    link: "https://devhunt.org/tool/modern-developer-blog-template-digital-garden-starter",
+  },
+  postsPerPage: 10,
+  postsOnHomePage: 8,
+  projectsOnHomePage: 4,
 };
 
 export default siteMetadata;
