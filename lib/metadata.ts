@@ -17,13 +17,13 @@ export const defaultAuthor: AuthorType = {
   company: "Solopreneur",
   availableForWork: true,
   location: {
-    city: "Barcelona",
-    media: "/barcelona.jpg",
+    city: "Toronto",
+    media: "/toronto.jpg",
   },
 };
 
 const defaultTitle = `${defaultAuthor.name}'s Digital Garden`;
-const defaultDescription = `I'm ${defaultAuthor.name}. Building hackin’ cool digital products around the world 🌴.`;
+const defaultDescription = `I'm ${defaultAuthor.name}. A full-stack product engineer and music-tech CTO building hackin’ cool digital products around the world 🌴.`;
 
 const siteMetadata: SiteMetaData = {
   title: {
