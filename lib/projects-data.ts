@@ -14,8 +14,8 @@ export const projects = [
     mediaType: "video",
   },
   {
-    title: "ADHDay",
-    description: `A cross-platform app to help people with ADD tracking medications, side-effects, symptoms and habits. Built with React Native, Expo, and Supabase.`,
+    title: "Bumblebee",
+    description: `Your bees deserve nicer hiiv.`,
     href: "#",
   },
 ];
