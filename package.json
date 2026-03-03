@@ -12,7 +12,7 @@
   },
   "scripts": {
     "dev": "next dev",
-    "build": "contentlayer build && next build",
+    "build": "next build",
     "start": "next start",
     "preview": "next build && next start",
     "lint": "next lint",
@@ -37,12 +37,10 @@
     "class-variance-authority": "0.7.0",
     "clsx": "2.0.0",
     "cmdk": "0.2.0",
-    "contentlayer": "0.3.4",
     "date-fns": "2.30.0",
     "github-slugger": "2.0.0",
     "lucide-react": "0.274.0",
     "next": "13.4.9",
-    "next-contentlayer": "0.3.4",
     "next-themes": "0.2.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
@@ -61,6 +59,9 @@
     "zod": "3.22.2"
   },
   "devDependencies": {
+    "@content-collections/core": "^0.14.2",
+    "@content-collections/mdx": "^0.2.2",
+    "@content-collections/next": "^0.2.11",
     "@ianvs/prettier-plugin-sort-imports": "4.1.0",
     "@tailwindcss/typography": "0.5.9",
     "@types/node": "20.5.8",
@@ -89,6 +90,9 @@
       "@opentelemetry/sdk-trace-base": "^1.15.1",
       "@opentelemetry/sdk-trace-node": "^1.15.1",
       "@opentelemetry/semantic-conventions": "^1.15.1"
-    }
+    },
+    "onlyBuiltDependencies": [
+      "esbuild"
+    ]
   }
 }

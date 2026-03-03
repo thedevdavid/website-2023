@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allPosts, Post } from "contentlayer/generated";
+import { allPosts, Post } from "content-collections";
 
 import { sortByDate } from "@/lib/utils";
 import PostPreview from "@/components/post-preview";

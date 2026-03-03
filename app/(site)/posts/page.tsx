@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "content-collections";
 import { compareDesc, format, parseISO } from "date-fns";
 
 import { defaultAuthor } from "@/lib/metadata";

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PostSeries, SeriesItem } from "@/types";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "content-collections";
 import { format, parseISO } from "date-fns";
 import { Home } from "lucide-react";
 
@@ -158,7 +158,7 @@ export default async function PostPage({ params }: PostProps) {
               <PostSeriesBox data={post.series} />
             </div>
           )}
-          <Mdx code={post.body.code} />
+          <Mdx code={post.body} />
           <hr className="my-4" />
           <div className="flex flex-row items-center justify-between">
             {post.tags && (

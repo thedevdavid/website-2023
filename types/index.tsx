@@ -1,5 +1,10 @@
 import { LinkProps } from "next/link";
-import { Post, Series } from "contentlayer/generated";
+import { Post } from "content-collections";
+
+type Series = {
+  title: string;
+  order: number;
+};
 
 import { AnnouncementBarProps } from "@/components/announcement-bar";
 
