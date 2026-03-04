@@ -63,27 +63,6 @@ function extractHeadings(raw: string) {
   });
 }
 
-export const tagOptions = [
-  "technology",
-  "productivity",
-  "business",
-  "remote work",
-  "starter",
-  "development",
-  "docs",
-  "freelancing",
-  "opinion",
-  "jamstack",
-  "frontend",
-  "development",
-  "javascript",
-  "typescript",
-  "react",
-  "nextjs",
-  "gatsby",
-  "tailwindcss",
-];
-
 const posts = defineCollection({
   name: "posts",
   directory: "content/posts",
@@ -107,6 +86,7 @@ const posts = defineCollection({
       })
       .optional(),
     status: z.enum(["draft", "published"]),
+    content: z.string(),
   }),
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {
@@ -143,6 +123,7 @@ const pages = defineCollection({
     description: z.string().optional(),
     lastUpdatedDate: z.string().optional(),
     status: z.enum(["draft", "published"]),
+    content: z.string(),
   }),
   transform: async (document, context) => {
     const body = await compileMDX(context, document, {
@@ -165,5 +146,5 @@ const pages = defineCollection({
 });
 
 export default defineConfig({
-  collections: [posts, pages],
+  content: [posts, pages],
 });

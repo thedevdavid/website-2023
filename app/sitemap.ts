@@ -1,7 +1,7 @@
 import { MetadataRoute } from "next";
 import { allPages, allPosts } from "content-collections";
 
-import { tagOptions } from "@/content-collections";
+import { tagOptions } from "@/lib/tags";
 import { BASE_URL } from "@/lib/metadata";
 
 export default function sitemap(): MetadataRoute.Sitemap {

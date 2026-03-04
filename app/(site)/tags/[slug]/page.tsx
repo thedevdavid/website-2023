@@ -20,15 +20,17 @@ async function getSortedArticles(): Promise<Post[]> {
 }
 
 // Dynamic metadata for the page
-export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
+  const { slug } = await params;
   return {
-    title: `All posts in ${params.slug}`,
-    description: `All posts in ${params.slug}`,
+    title: `All posts in ${slug}`,
+    description: `All posts in ${slug}`,
   };
 }
 
-export default async function TagPage({ params }: { params: { slug: string } }) {
-  const tag = params.slug;
+export default async function TagPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const tag = slug;
 
   const posts = allPosts
     .filter((post) => post.status === "published")
@@ -46,7 +48,7 @@ export default async function TagPage({ params }: { params: { slug: string } }) 
         <hr className="my-4" />
         <div className="grid grid-flow-row gap-2">
           {posts.map((post) => (
-            <PostPreview post={post} key={post._id} />
+            <PostPreview post={post} key={post.slug} />
           ))}
         </div>
       </div>

@@ -42,7 +42,7 @@ export default async function Home() {
           <div className="col-span-1 w-full lg:col-span-2">
             <div className="prose grid grid-flow-row gap-3">
               {posts.map((post) => (
-                <PostPreview key={post._id} post={post} />
+                <PostPreview key={post.slug} post={post} />
               ))}
             </div>
             <Link

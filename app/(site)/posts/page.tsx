@@ -24,7 +24,7 @@ export default function Blog() {
         <hr className="my-4" />
         <div className="grid grid-flow-row gap-2">
           {posts.map((post) => (
-            <PostPreview post={post} key={post._id} />
+            <PostPreview post={post} key={post.slug} />
           ))}
         </div>
       </div>
