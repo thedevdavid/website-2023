@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { PostSeries, SeriesItem } from "@/types";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "content-collections";
 import { format, parseISO } from "date-fns";
 import { Home } from "lucide-react";
 
@@ -17,13 +17,13 @@ import { SocialShare } from "@/components/social-share";
 import { TableOfContents } from "@/components/table-of-contents";
 
 interface PostProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-async function getPostFromParams(params: PostProps["params"]): Promise<any> {
-  const post = allPosts.find((post) => post.slug === params.slug);
+async function getPostFromParams(slug: string): Promise<any> {
+  const post = allPosts.find((post) => post.slug === slug);
 
   if (!post) {
     null;
@@ -50,7 +50,8 @@ async function getPostFromParams(params: PostProps["params"]): Promise<any> {
 }
 
 export async function generateMetadata({ params }: PostProps): Promise<Metadata> {
-  const post = await getPostFromParams(params);
+  const { slug } = await params;
+  const post = await getPostFromParams(slug);
 
   if (!post) {
     return {};
@@ -64,14 +65,15 @@ export async function generateMetadata({ params }: PostProps): Promise<Metadata>
   };
 }
 
-export async function generateStaticParams(): Promise<PostProps["params"][]> {
+export async function generateStaticParams() {
   return allPosts.map((post) => ({
-    slug: `/posts/${post._raw.flattenedPath}`,
+    slug: post.slug,
   }));
 }
 
 export default async function PostPage({ params }: PostProps) {
-  const post = await getPostFromParams(params);
+  const { slug } = await params;
+  const post = await getPostFromParams(slug);
 
   if (!post || (process.env.NODE_ENV === "development" && post.status !== "published")) {
     notFound();
@@ -158,7 +160,7 @@ export default async function PostPage({ params }: PostProps) {
               <PostSeriesBox data={post.series} />
             </div>
           )}
-          <Mdx code={post.body.code} />
+          <Mdx code={post.body} />
           <hr className="my-4" />
           <div className="flex flex-row items-center justify-between">
             {post.tags && (

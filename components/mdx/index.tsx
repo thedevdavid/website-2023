@@ -1,6 +1,6 @@
 import NextImage, { ImageProps } from "next/image";
 import Link from "next/link";
-import { useMDXComponent } from "next-contentlayer/hooks";
+import { MDXContent } from "@content-collections/mdx/react";
 import type { TweetProps } from "react-tweet";
 import { Tweet } from "react-tweet";
 
@@ -39,7 +39,5 @@ interface MdxProps {
 }
 
 export function Mdx({ code }: MdxProps) {
-  const Component = useMDXComponent(code);
-  // TODO: Figure out how to type this
-  return <Component components={components as any} />;
+  return <MDXContent code={code} components={components as any} />;
 }

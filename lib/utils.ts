@@ -1,5 +1,5 @@
 import { clsx, type ClassValue } from "clsx";
-import { Post } from "contentlayer/generated";
+import { Post } from "content-collections";
 import { compareDesc } from "date-fns";
 import { twMerge } from "tailwind-merge";
 

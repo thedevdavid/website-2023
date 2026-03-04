@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { allPosts } from "contentlayer/generated";
+import { allPosts } from "content-collections";
 import { compareDesc, format, parseISO } from "date-fns";
 
 import { defaultAuthor } from "@/lib/metadata";
@@ -24,7 +24,7 @@ export default function Blog() {
         <hr className="my-4" />
         <div className="grid grid-flow-row gap-2">
           {posts.map((post) => (
-            <PostPreview post={post} key={post._id} />
+            <PostPreview post={post} key={post.slug} />
           ))}
         </div>
       </div>

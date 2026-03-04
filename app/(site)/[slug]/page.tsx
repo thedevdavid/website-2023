@@ -1,18 +1,18 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { allPages } from "contentlayer/generated";
+import { allPages } from "content-collections";
 import { format, parseISO } from "date-fns";
 
 import { Mdx } from "@/components/mdx";
 
 interface PageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
-async function getPageFromParams(params: PageProps["params"]) {
-  const page = allPages.find((page) => page.slug === params.slug);
+async function getPageFromParams(slug: string) {
+  const page = allPages.find((page) => page.slug === slug);
 
   if (!page) {
     null;
@@ -22,7 +22,8 @@ async function getPageFromParams(params: PageProps["params"]) {
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const page = await getPageFromParams(params);
+  const { slug } = await params;
+  const page = await getPageFromParams(slug);
 
   if (!page) {
     return {};
@@ -34,14 +35,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export async function generateStaticParams(): Promise<PageProps["params"][]> {
+export async function generateStaticParams() {
   return allPages.map((page) => ({
     slug: page.slug,
   }));
 }
 
 export default async function PagePage({ params }: PageProps) {
-  const page = await getPageFromParams(params);
+  const { slug } = await params;
+  const page = await getPageFromParams(slug);
 
   if (!page || (process.env.NODE_ENV === "development" && page.status !== "published")) {
     notFound();
@@ -58,7 +60,7 @@ export default async function PagePage({ params }: PageProps) {
           </time>
         )}
         <hr className="my-4" />
-        <Mdx code={page.body.code} />
+        <Mdx code={page.body} />
       </article>
     </div>
   );
